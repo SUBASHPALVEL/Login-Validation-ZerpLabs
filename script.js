@@ -1,24 +1,23 @@
 const userCredentials = [
-    { email: 'user1@example.com', password: 'Q!w2' },
-    { email: 'user2@example.com', password: 'Q!w2' },
-    { email: 'user3@example.com', password: 'Q!w2' }
-  ];
-
+  { email: "user1@example.com", password: "Q!w2" },
+  { email: "user2@example.com", password: "Q!w2" },
+  { email: "user3@example.com", password: "Q!w2" },
+];
 
 // Get form element
-const button1 = document.querySelector('#submitButton');
+const button1 = document.querySelector("#submitButton");
 
 // Get input elements
-const emailInput = document.querySelector('#Email');
-const passwordInput = document.querySelector('#Password');
+const emailInput = document.querySelector("#Email");
+const passwordInput = document.querySelector("#Password");
 
 // Get error elements
-const emailError = document.querySelector('#emailError');
-const passwordError = document.querySelector('#passwordError');
+const emailError = document.querySelector("#emailError");
+const passwordError = document.querySelector("#passwordError");
 
-const successMessage = document.getElementById('successMessage');
-const failureMessage = document.getElementById('failureMessage');
-const formContainer = document.querySelector('.container');
+const successMessage = document.getElementById("successMessage");
+const failureMessage = document.getElementById("failureMessage");
+const formContainer = document.querySelector(".container");
 
 // Validation functions
 function isValidEmail(email) {
@@ -31,76 +30,66 @@ function isValidPassword(password) {
     lowercase: /[a-z]/,
     uppercase: /[A-Z]/,
     digit: /\d/,
-    special: /[@$!%*?&]/
+    special: /[@$!%*?&]/,
   };
 
-  let errorMessage = 'Password must contain: ';
+  let errorMessage = "Password must contain: ";
 
   for (const requirement in requirements) {
     if (!requirements[requirement].test(password)) {
-      errorMessage += requirement + ', ';
+      errorMessage += requirement + ", ";
     }
   }
 
-  if (errorMessage !== 'Password must contain: ') {
+  if (errorMessage !== "Password must contain: ") {
     passwordError.textContent = errorMessage.slice(0, -2);
     return false;
   } else {
-    passwordError.textContent = '';
+    passwordError.textContent = "";
     return true;
   }
 }
 
 // Validate on input change
-emailInput.addEventListener('input', () => {
+emailInput.addEventListener("input", () => {
   // Validate email
   if (!emailInput.value.trim()) {
-    emailError.textContent = 'Email is required';
+    emailError.textContent = "Email is required";
   } else if (!isValidEmail(emailInput.value)) {
-    emailError.textContent = 'Invalid email';
+    emailError.textContent = "Invalid email";
   } else {
-    emailError.textContent = '';
+    emailError.textContent = "";
   }
 });
 
-passwordInput.addEventListener('input', () => {
+passwordInput.addEventListener("input", () => {
   // Validate password
   if (!passwordInput.value.trim()) {
-    passwordError.textContent = 'Password is required';
+    passwordError.textContent = "Password is required";
   } else {
     isValidPassword(passwordInput.value);
   }
 });
 
 // Submit form
-button1.addEventListener('click', (e) => {
+button1.addEventListener("click", (e) => {
   e.preventDefault();
 
   // Check if valid
   if (!emailError.textContent && !passwordError.textContent) {
-
-    checkCredentials(emailInput.value,passwordInput.value);
+    checkCredentials(emailInput.value, passwordInput.value);
   }
-  
 });
 
-
-
-
-
-
-
 function checkCredentials(email, password) {
-    for (const user of userCredentials) {
-      if (user.email === email && user.password === password) {
-        formContainer.style.display = 'none';
-        successMessage.style.display = 'block';
-        return;
-      }
-      else{
-        formContainer.style.display = 'none';
-        failureMessage.style.display = 'block';
-      }
+  for (const user of userCredentials) {
+    if (user.email === email && user.password === password) {
+      formContainer.style.display = "none";
+      successMessage.style.display = "block";
+      return;
+    } else {
+      formContainer.style.display = "none";
+      failureMessage.style.display = "block";
     }
-    
   }
+}

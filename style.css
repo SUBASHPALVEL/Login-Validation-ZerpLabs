@@ -1,74 +1,70 @@
-html,body {
-    height: 100%;
-    padding: 0px;
-    margin: 0px;
-  }
-  
+html,
+body {
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
 .container {
-    width: 100%;
-    height: 100%;
-    background-color: red;
-    display:flex;
-  }
+  width: 100%;
+  height: 100%;
+  background-color: red;
+  display: flex;
+}
 
-.right-div{
-    background-color:#ececf4;
-    width:50%;
-    
-    
-  }
+.right-div {
+  background-color: #ececf4;
+  width: 50%;
+}
 
-.left-div{
-    padding-top: 100px;
-    background-color:whitesmoke;
-    width:50%;
-    justify-content: center;
-    display: flex;
+.left-div {
+  padding-top: 100px;
+  background-color: whitesmoke;
+  width: 50%;
+  justify-content: center;
+  display: flex;
+}
 
-  }
-
-button{
+button {
   width: 300px;
   height: 30px;
   justify-content: center;
   outline: 1px solid white;
 }
 
-#submitButton{
+#submitButton {
   width: 300px;
   height: 30px;
   justify-content: center;
   outline: 1px solid white;
-  background-color:#7e5ecb;
+  background-color: #7e5ecb;
   outline: none;
 }
 
 .googleLogin img {
-    width: 12px;
-    height: 12px;
-    margin-top:2px;
-    margin-right: 10px;
-  }
-  
-a{
-    font-size: small;
+  width: 12px;
+  height: 12px;
+  margin-top: 2px;
+  margin-right: 10px;
 }
-  
+
+a {
+  font-size: small;
+}
+
 img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 50%;
-    width: 200px;
-    height: 200px;
-  }
-
-.circle-image{
-    justify-content: center;
-    display: flex;
-    padding-top: 150px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
 }
 
-
+.circle-image {
+  justify-content: center;
+  display: flex;
+  padding-top: 150px;
+}
 
 .error {
   color: red;
