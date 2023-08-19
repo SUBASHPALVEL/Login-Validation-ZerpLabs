@@ -119,3 +119,6 @@ input[type="text"] {
   border: 2px solid #ccc;
   border-radius: 2px;
 }
+input.errorbox {
+  border: 2px solid red;
+}

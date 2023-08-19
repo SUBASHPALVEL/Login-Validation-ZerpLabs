@@ -43,9 +43,11 @@ function isValidPassword(password) {
 
   if (errorMessage !== "Password must contain: ") {
     passwordError.textContent = errorMessage.slice(0, -2);
+    passwordInput.classList.add("errorbox");
     return false;
   } else {
     passwordError.textContent = "";
+    passwordInput.classList.remove("errorbox");
     return true;
   }
 }
@@ -55,9 +57,12 @@ emailInput.addEventListener("input", () => {
   // Validate email
   if (!emailInput.value.trim()) {
     emailError.textContent = "Email is required";
+    emailInput.classList.add("errorbox");
   } else if (!isValidEmail(emailInput.value)) {
     emailError.textContent = "Invalid email";
+    emailInput.classList.add("errorbox");
   } else {
+    emailInput.classList.remove("errorbox");
     emailError.textContent = "";
   }
 });
@@ -66,6 +71,7 @@ passwordInput.addEventListener("input", () => {
   // Validate password
   if (!passwordInput.value.trim()) {
     passwordError.textContent = "Password is required";
+    passwordInput.classList.add("errorbox");
   } else {
     isValidPassword(passwordInput.value);
   }
