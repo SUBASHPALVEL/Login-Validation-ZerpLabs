@@ -137,4 +137,6 @@ function showFor4SecondsForFailure() {
 
 function resetForm() {
   document.getElementById("loginForm").reset();
+  emailInputValue=undefined;
+  passwordInputValue=undefined;
 }
