@@ -1,27 +1,45 @@
+const loginButton = document.querySelector("#submitButton");
+const emailError = document.querySelector("#emailError");
+const passwordError = document.querySelector("#passwordError");
+const successMessage = document.getElementById("successMessage");
+const failureMessage = document.getElementById("failureMessage");
+const formContainer = document.querySelector(".container");
+
+let clickedElement;
+let emailInputValue;
+let passwordInputValue;
+
 const userCredentials = [
   { email: "user1@example.com", password: "Q!w2" },
   { email: "user2@example.com", password: "Q!w2" },
   { email: "user3@example.com", password: "Q!w2" },
 ];
 
-// Get form element
-const button1 = document.querySelector("#submitButton");
+function gettingElement(event) {
+  clickedElement = event.target;
+  console.log(clickedElement);
 
-// Get input elements
-const emailInput = document.querySelector("#Email");
-const passwordInput = document.querySelector("#Password");
+  if (clickedElement.id === "Email") {
+    emailError.textContent = "";
+    emailChecker();
+  } else if (clickedElement.id === "Password") {
+    passwordError.textContent = "";
+    passwordChecker();
+  }
+}
 
-// Get error elements
-const emailError = document.querySelector("#emailError");
-const passwordError = document.querySelector("#passwordError");
+loginButton.addEventListener("click", (e) => {
+  e.preventDefault();
 
-const successMessage = document.getElementById("successMessage");
-const failureMessage = document.getElementById("failureMessage");
-const formContainer = document.querySelector(".container");
+  if (emailInputValue == undefined && passwordInputValue == undefined) {
+    passwordError.textContent = "Password is required";
+    emailError.textContent = "Email is required";
+  } else if (!emailError.textContent && !passwordError.textContent) {
+    checkCredentials(emailInputValue, passwordInputValue);
+  }
+});
 
-// Validation functions
 function isValidEmail(email) {
-  // Email regex
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
@@ -43,59 +61,80 @@ function isValidPassword(password) {
 
   if (errorMessage !== "Password must contain: ") {
     passwordError.textContent = errorMessage.slice(0, -2);
-    passwordInput.classList.add("errorbox");
+    clickedElement.classList.add("errorbox");
     return false;
   } else {
     passwordError.textContent = "";
-    passwordInput.classList.remove("errorbox");
+    clickedElement.classList.remove("errorbox");
     return true;
   }
 }
 
-// Validate on input change
-emailInput.addEventListener("input", () => {
-  // Validate email
-  if (!emailInput.value.trim()) {
-    emailError.textContent = "Email is required";
-    emailInput.classList.add("errorbox");
-  } else if (!isValidEmail(emailInput.value)) {
-    emailError.textContent = "Invalid email";
-    emailInput.classList.add("errorbox");
-  } else {
-    emailInput.classList.remove("errorbox");
-    emailError.textContent = "";
-  }
-});
-
-passwordInput.addEventListener("input", () => {
-  // Validate password
-  if (!passwordInput.value.trim()) {
-    passwordError.textContent = "Password is required";
-    passwordInput.classList.add("errorbox");
-  } else {
-    isValidPassword(passwordInput.value);
-  }
-});
-
-// Submit form
-button1.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  // Check if valid
-  if (!emailError.textContent && !passwordError.textContent) {
-    checkCredentials(emailInput.value, passwordInput.value);
-  }
-});
-
 function checkCredentials(email, password) {
   for (const user of userCredentials) {
     if (user.email === email && user.password === password) {
-      formContainer.style.display = "none";
-      successMessage.style.display = "block";
+      showFor4SecondsForSuccess();
+      resetForm();
+
       return;
     } else {
-      formContainer.style.display = "none";
-      failureMessage.style.display = "block";
+      showFor4SecondsForFailure();
+      resetForm();
     }
   }
+}
+
+function passwordChecker() {
+  clickedElement.addEventListener("input", () => {
+    if (!clickedElement.value.trim()) {
+      passwordError.textContent = "Password is required";
+      clickedElement.classList.add("errorbox");
+      passwordInputValue = clickedElement.value;
+    } else {
+      isValidPassword(clickedElement.value);
+      passwordInputValue = clickedElement.value;
+    }
+  });
+}
+
+function emailChecker() {
+  clickedElement.addEventListener("input", () => {
+    if (!clickedElement.value.trim()) {
+      emailError.textContent = "Email is required";
+      clickedElement.classList.add("errorbox");
+      emailInputValue = clickedElement.value;
+    } else if (!isValidEmail(clickedElement.value)) {
+      emailError.textContent = "Invalid email";
+      clickedElement.classList.add("errorbox");
+
+      emailInputValue = clickedElement.value;
+    } else {
+      clickedElement.classList.remove("errorbox");
+      emailError.textContent = "";
+
+      emailInputValue = clickedElement.value;
+    }
+  });
+}
+
+function showFor4SecondsForSuccess() {
+  formContainer.style.opacity = "0.5";
+  successMessage.style.display = "block";
+  setTimeout(() => {
+    successMessage.style.display = "none";
+    formContainer.style.opacity = "1";
+  }, 3000);
+}
+
+function showFor4SecondsForFailure() {
+  failureMessage.style.display = "block";
+  formContainer.style.opacity = "0.5";
+  setTimeout(() => {
+    failureMessage.style.display = "none";
+    formContainer.style.opacity = "1";
+  }, 3000);
+}
+
+function resetForm() {
+  document.getElementById("loginForm").reset();
 }

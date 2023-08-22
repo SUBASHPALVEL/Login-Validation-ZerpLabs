@@ -122,3 +122,19 @@ input[type="text"] {
 input.errorbox {
   border: 2px solid red;
 }
+
+.animated-element {
+  background-color: blue;
+  animation: myAnimation 4s ease-in-out;
+}
+
+@keyframes myAnimation {
+  0% {
+      transform: scale(1);
+      opacity: 1;
+  }
+  100% {
+      transform: scale(1.5);
+      opacity: 0;
+  }
+}
